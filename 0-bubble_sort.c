@@ -2,13 +2,16 @@
 
 /**
  * bubble_sort - sorts array ints in ascending order
- * array: int array
- * size: size of array
+ * @array: int array
+ * @size: size of array
  */
 void bubble_sort(int *array, size_t size)
 {
 	size_t i, j;
 	int temp;
+
+	if (array == NULL || size < 2)
+		return;
 
 	for (i = 0; i < size - 1; i++)
 	{
@@ -19,10 +22,8 @@ void bubble_sort(int *array, size_t size)
 				temp = array[j];
 				array[j] = array[j + 1];
 				array[j + 1] = temp;
+				print_array(array, size);
 			}
-			printf("%d, ", array[j]);
 		}
-		printf("\n");
-		printf("%d", array[i]);
 	}
 }
