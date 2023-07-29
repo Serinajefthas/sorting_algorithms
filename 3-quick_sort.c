@@ -1,6 +1,24 @@
 #include "sort.h"
 
 /**
+ * swop - swops two items in array
+ * @array: array to edit
+ * @x: left item index
+ * @y: right item index
+ */
+void swop(int *array, size_t x, size_t y)
+{
+	int temp;
+
+	if (array != NULL)
+	{
+		temp = array[x];
+		array[x] = array[y];
+		array[y] = temp;
+	}
+}
+
+/**
  * quick_sort - sorts array of ints using quick sort algorithm
  * @array: array of integers
  * @size: size of array
@@ -22,6 +40,9 @@ void quick_sort_recursive(int *array, int low, int high, size_t size)
 {
 	int pivot_index;
 
+	if (low >= high || array == NULL)
+		return;
+
 	if (low < high)
 	{
 		pivot_index = partition(array, low, high, size);
@@ -42,7 +63,7 @@ void quick_sort_recursive(int *array, int low, int high, size_t size)
  */
 int partition(int *array, int low, int high, size_t size)
 {
-	int pivot, i, j, temp;
+	int pivot, i, j;
 
 	pivot = array[high];
 	i = low;
@@ -51,16 +72,20 @@ int partition(int *array, int low, int high, size_t size)
 	{
 		if (array[j] <= pivot)
 		{
-			temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
+			if (i != j)
+			{
+				swop(array, i, j);
+				print_array(array, size);
+			}
 			i++;
 		}
 	}
-	temp = array[i];
-	array[i] = array[high];
-	array[high] = temp;
-	print_array(array, size);
+	if (i != high)
+	{
+		swop(array, i, high);
+		print_array(array, size);
+	}
 	return (i);
 }
+
 
