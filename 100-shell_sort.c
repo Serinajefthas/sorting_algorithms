@@ -7,7 +7,8 @@
  */
 void shell_sort(int *array, size_t size)
 {
-	size_t i, j, temp, h;
+	size_t i, j, h;
+	int temp;
 
 	if (size < 2)
 		return;
@@ -17,21 +18,18 @@ void shell_sort(int *array, size_t size)
 
 	while (h >= 1)
 	{
-		for (x = h; x < size; x++)
+		for (i = h; i < size; i++)
 		{
+			temp = array[i];
 			j = i;
-			while (j > h - 1 && array[j] < array[j - h])
+			while (j >= h && temp < array[j - h])
 			{
-				if (array[j] != array[j - h])
-				{
-					temp = array[j];
-					array[j] = array[j - h];
-					array[j - h] = temp;
-				}
+				array[j] = array[j - h];
 				j -= h;
 			}
+			array[j] = temp;
 		}
-		h = h / 3;
+		h = (h - 1)/ 3;
 		print_array(array, size);
 	}
 }
